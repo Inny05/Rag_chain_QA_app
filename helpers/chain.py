@@ -1,20 +1,16 @@
 #helpers/chain.py
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnableMap, RunnablePassthrough, RunnableLambda
-#from langchain.schema.runnable import Runnable
+from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 # Import ChatGroq instead of HuggingFaceHub
 from dotenv import load_dotenv
 import os
-from groq import Groq
+#from groq import Groq
 from langchain_groq import ChatGroq
-from langchain.schema import Document
+#from langchain.schema import Document
 from langchain.retrievers import ContextualCompressionRetriever
 
 load_dotenv()
-env = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=env)
-
 
 def _format_docs(docs: list) -> str:
     """
@@ -40,7 +36,7 @@ def create_rag_chain(retriever: ContextualCompressionRetriever):
     llm = ChatGroq(
         temperature=0,
         model_name="llama-3.1-8b-instant",
-        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        api_key=os.getenv("GROQ_API_KEY")
     )
 
 
